@@ -61,7 +61,9 @@
 		EDB4B5B03061B6D600461DA5 /* Exceptions for "Sampaguita" folder in "SampaguitaWidgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				FlowerView.swift,
 				SharedSettings.swift,
+				Theme.swift,
 			);
 			target = ED24B3B03060E72000A46BBF /* SampaguitaWidgetExtension */;
 		};

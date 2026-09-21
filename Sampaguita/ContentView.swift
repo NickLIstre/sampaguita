@@ -14,20 +14,24 @@ struct ContentView: View {
 
     var body: some View {
         NavigationStack {
-            Form {
-                Section("Text") {
-                    Slider(value: $textOpacity, in: 0.2...1.0) { editing in
-                        // Only refresh the widget when the user lets go of the slider.
-                        if !editing {
-                            WidgetCenter.shared.reloadAllTimelines()
+            VStack(spacing: 0) {
+                WordFlower(word: "salamat", translation: "thank you", textOpacity: textOpacity)
+                    .frame(width: 200, height: 200)
+                    .padding(.vertical)
+
+                Form {
+                    Section("Text") {
+                        Slider(value: $textOpacity, in: 0.2...1.0) { editing in
+                            // Only refresh the widget when the user lets go of the slider.
+                            if !editing {
+                                WidgetCenter.shared.reloadAllTimelines()
+                            }
                         }
                     }
-
-                    Text("salamat")
-                        .font(.headline)
-                        .opacity(textOpacity)
                 }
+                .scrollContentBackground(.hidden)
             }
+            .background(Theme.background)
             .navigationTitle("Sampaguita")
         }
     }

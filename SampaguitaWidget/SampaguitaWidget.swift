@@ -85,6 +85,11 @@ struct SampaguitaWidgetEntryView : View {
             Text("\(entry.word.word) · \(entry.word.translation)")
                 .opacity(entry.textOpacity)
 
+        case .systemSmall:
+            WordFlower(word: entry.word.word,
+                       translation: entry.word.translation,
+                       textOpacity: entry.textOpacity)
+
         default:
             VStack {
                 Text(entry.word.word)
@@ -104,7 +109,7 @@ struct SampaguitaWidget: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             SampaguitaWidgetEntryView(entry: entry)
-                .containerBackground(.fill.tertiary, for: .widget)
+                .containerBackground(Theme.background, for: .widget)
         }
         .configurationDisplayName("Word of the Hour")
         .description("Learn a new Filipino word every hour.")
@@ -117,4 +122,11 @@ struct SampaguitaWidget: Widget {
 } timeline: {
     SimpleEntry(date: .now, word: .sample)
     SimpleEntry(date: .now, word: .sample)
+}
+
+#Preview("Home Screen", as: .systemSmall) {
+    SampaguitaWidget()
+} timeline: {
+    SimpleEntry(date: .now, word: .sample)
+    SimpleEntry(date: .now, word: Word(word: "kumusta", translation: "how are you"))
 }

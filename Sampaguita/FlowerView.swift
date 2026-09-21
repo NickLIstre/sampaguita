@@ -1,0 +1,70 @@
+//
+//  FlowerView.swift
+//  Sampaguita
+//
+//  Created by Nick Istre on 9/21/26.
+//
+
+import SwiftUI
+
+struct FlowerView<Content: View>: View {
+    var petalCount = 5
+    var petalColor: Color = Theme.petal
+    var centerColor: Color = Theme.center
+    @ViewBuilder var content: Content
+
+    var body: some View {
+        GeometryReader { geometry in
+            let size = min(geometry.size.width, geometry.size.height)
+
+            ZStack {
+                // Petals
+                ForEach(0..<petalCount, id: \.self) { index in
+                    Ellipse()
+                        .fill(petalColor)
+                        .shadow(color: .black.opacity(0.5), radius: 2)
+                        .frame(width: size * 0.29, height: size * 0.62)
+                        .offset(y: -size * 0.19)
+                        .rotationEffect(.degrees(Double(index) / Double(petalCount) * 360))
+                }
+
+                // Center
+                Circle()
+                    .fill(centerColor)
+                    .frame(width: size * 0.42, height: size * 0.42)
+                    .overlay {
+                        content
+                            .padding(size * 0.05)
+                    }
+            }
+            .frame(width: geometry.size.width, height: geometry.size.height)
+        }
+    }
+}
+
+struct WordFlower: View {
+    let word: String
+    let translation: String
+    var textOpacity = 1.0
+
+    var body: some View {
+        FlowerView {
+            VStack(spacing: 2) {
+                Text(word)
+                    .font(.headline)
+                    .foregroundStyle(.black)
+                Text(translation)
+                    .font(.caption)
+                    .foregroundStyle(.black.opacity(0.6))
+            }
+            .multilineTextAlignment(.center)
+            .minimumScaleFactor(0.5)
+            .opacity(textOpacity)
+        }
+    }
+}
+
+#Preview("Word flower") {
+    WordFlower(word: "kumusta", translation: "how are you")
+        .frame(width: 170, height: 170)
+}
