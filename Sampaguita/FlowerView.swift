@@ -38,6 +38,7 @@ struct FlowerView<Content: View>: View {
                 Circle()
                     .fill(isFullColor ? centerColor : .white)
                     .frame(width: size * 0.42, height: size * 0.42)
+                    .overlay { Circle().stroke(.black.opacity(0.12), lineWidth: 1) }
                     .overlay {
                         content
                             .padding(size * 0.05)

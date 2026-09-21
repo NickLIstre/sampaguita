@@ -33,6 +33,14 @@ struct ContentView: View {
             }
             .background(Theme.background)
             .navigationTitle("Sampaguita")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("Sampaguita")
+                        .font(.largeTitle.bold())
+                        .fontDesign(.serif)
+                }
+            }
         }
     }
 }

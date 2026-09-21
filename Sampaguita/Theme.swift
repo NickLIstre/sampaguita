@@ -13,5 +13,5 @@ enum Theme {
     static let background = pastelPurple
 
     static let petal = Color.white
-    static let center = Color(red: 1.0, green: 0.87, blue: 0.40)
+    static let center = Color(red: 1.0, green: 0.97, blue: 0.88)
 }
