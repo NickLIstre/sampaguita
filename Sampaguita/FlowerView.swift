@@ -6,12 +6,18 @@
 //
 
 import SwiftUI
+import WidgetKit
 
 struct FlowerView<Content: View>: View {
     var petalCount = 5
     var petalColor: Color = Theme.petal
     var centerColor: Color = Theme.center
     @ViewBuilder var content: Content
+    @Environment(\.widgetRenderingMode) private var renderingMode
+
+    private var isFullColor: Bool {
+        renderingMode == .fullColor
+    }
 
     var body: some View {
         GeometryReader { geometry in
@@ -21,8 +27,8 @@ struct FlowerView<Content: View>: View {
                 // Petals
                 ForEach(0..<petalCount, id: \.self) { index in
                     Ellipse()
-                        .fill(petalColor)
-                        .shadow(color: .black.opacity(0.5), radius: 2)
+                        .fill(isFullColor ? petalColor : .white.opacity(0.45))
+                        .shadow(color: .black.opacity(isFullColor ? 0.5 : 0), radius: 2)
                         .frame(width: size * 0.29, height: size * 0.62)
                         .offset(y: -size * 0.19)
                         .rotationEffect(.degrees(Double(index) / Double(petalCount) * 360))
@@ -30,7 +36,7 @@ struct FlowerView<Content: View>: View {
 
                 // Center
                 Circle()
-                    .fill(centerColor)
+                    .fill(isFullColor ? centerColor : .white)
                     .frame(width: size * 0.42, height: size * 0.42)
                     .overlay {
                         content
@@ -53,12 +59,14 @@ struct WordFlower: View {
                 Text(word)
                     .font(.headline)
                     .foregroundStyle(.black)
+                    .lineLimit(word.contains(" ") ? 2 : 1)
                 Text(translation)
                     .font(.caption)
                     .foregroundStyle(.black.opacity(0.6))
+                    .lineLimit(2)
             }
             .multilineTextAlignment(.center)
-            .minimumScaleFactor(0.5)
+            .minimumScaleFactor(0.4)
             .opacity(textOpacity)
         }
     }
