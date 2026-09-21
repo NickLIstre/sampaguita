@@ -46,6 +46,8 @@ struct Provider: TimelineProvider {
         if words.isEmpty {
             words = [.sample]
         }
+        
+        let textOpacity = SharedSettings.store.object(forKey: SharedSettings.textOpacityKey) as? Double ?? 1.0
 
         let startOfHour = Calendar.current.dateInterval(of: .hour, for: Date())!.start
 
@@ -57,7 +59,7 @@ struct Provider: TimelineProvider {
             let hoursSince1970 = Int(entryDate.timeIntervalSince1970 / 3600)
             let word = words[hoursSince1970 % words.count]
 
-            let entry = SimpleEntry(date: entryDate, word: word)
+            let entry = SimpleEntry(date: entryDate, word: word, textOpacity: textOpacity)
             entries.append(entry)
         }
 
@@ -69,6 +71,7 @@ struct Provider: TimelineProvider {
 struct SimpleEntry: TimelineEntry {
     let date: Date
     let word: Word
+    var textOpacity: Double = 1.0
 }
 
 struct SampaguitaWidgetEntryView : View {
@@ -80,6 +83,7 @@ struct SampaguitaWidgetEntryView : View {
         switch family {
         case .accessoryInline:
             Text("\(entry.word.word) · \(entry.word.translation)")
+                .opacity(entry.textOpacity)
 
         default:
             VStack {
@@ -89,6 +93,7 @@ struct SampaguitaWidgetEntryView : View {
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }
+            .opacity(entry.textOpacity)
         }
     }
 }

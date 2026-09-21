@@ -47,6 +47,7 @@
 		ED24B3B53060E72000A46BBF /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		ED24B3CB3060E73A00A46BBF /* words-fil.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "words-fil.json"; sourceTree = "<group>"; };
 		EDB4B5A83061B16E00461DA5 /* words-fr.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "words-fr.json"; sourceTree = "<group>"; };
+		EDB4B5AC3061B68A00461DA5 /* SampaguitaWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SampaguitaWidgetExtension.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -57,11 +58,21 @@
 			);
 			target = ED24B3B03060E72000A46BBF /* SampaguitaWidgetExtension */;
 		};
+		EDB4B5B03061B6D600461DA5 /* Exceptions for "Sampaguita" folder in "SampaguitaWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				SharedSettings.swift,
+			);
+			target = ED24B3B03060E72000A46BBF /* SampaguitaWidgetExtension */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		ED24B3A13060E5CF00A46BBF /* Sampaguita */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				EDB4B5B03061B6D600461DA5 /* Exceptions for "Sampaguita" folder in "SampaguitaWidgetExtension" target */,
+			);
 			path = Sampaguita;
 			sourceTree = "<group>";
 		};
@@ -98,6 +109,7 @@
 		ED24B3963060E5CF00A46BBF = {
 			isa = PBXGroup;
 			children = (
+				EDB4B5AC3061B68A00461DA5 /* SampaguitaWidgetExtension.entitlements */,
 				ED24B3A13060E5CF00A46BBF /* Sampaguita */,
 				ED24B3B73060E72000A46BBF /* SampaguitaWidget */,
 				ED24B3B23060E72000A46BBF /* Frameworks */,
@@ -385,6 +397,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Sampaguita/Sampaguita.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = P6WRVQ9NXJ;
@@ -402,6 +415,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blackbaccaraproductions.Sampaguita;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
@@ -417,6 +431,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Sampaguita/Sampaguita.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = P6WRVQ9NXJ;
@@ -434,6 +449,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blackbaccaraproductions.Sampaguita;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
@@ -449,6 +465,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = SampaguitaWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = P6WRVQ9NXJ;
@@ -464,6 +481,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blackbaccaraproductions.Sampaguita.SampaguitaWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
 				SKIP_INSTALL = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -479,6 +497,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = SampaguitaWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = P6WRVQ9NXJ;
@@ -494,6 +513,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.blackbaccaraproductions.Sampaguita.SampaguitaWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
 				SKIP_INSTALL = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
