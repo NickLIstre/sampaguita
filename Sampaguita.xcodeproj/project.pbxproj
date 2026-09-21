@@ -6,14 +6,68 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		ED24B3B43060E72000A46BBF /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED24B3B33060E72000A46BBF /* WidgetKit.framework */; };
+		ED24B3B63060E72000A46BBF /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED24B3B53060E72000A46BBF /* SwiftUI.framework */; };
+		ED24B3C53060E72200A46BBF /* SampaguitaWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = ED24B3B13060E72000A46BBF /* SampaguitaWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		ED24B3CC3060E74D00A46BBF /* words.json in Resources */ = {isa = PBXBuildFile; fileRef = ED24B3CB3060E73A00A46BBF /* words.json */; };
+		ED24B3DF3060E9F900A46BBF /* words.json in Resources */ = {isa = PBXBuildFile; fileRef = ED24B3CB3060E73A00A46BBF /* words.json */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		ED24B3C33060E72200A46BBF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ED24B3973060E5CF00A46BBF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ED24B3B03060E72000A46BBF;
+			remoteInfo = SampaguitaWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		ED24B3CA3060E72200A46BBF /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				ED24B3C53060E72200A46BBF /* SampaguitaWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		ED24B39F3060E5CF00A46BBF /* Sampaguita.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sampaguita.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED24B3B13060E72000A46BBF /* SampaguitaWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SampaguitaWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED24B3B33060E72000A46BBF /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		ED24B3B53060E72000A46BBF /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		ED24B3CB3060E73A00A46BBF /* words.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = words.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		ED24B3C63060E72200A46BBF /* Exceptions for "SampaguitaWidget" folder in "SampaguitaWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = ED24B3B03060E72000A46BBF /* SampaguitaWidgetExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		ED24B3A13060E5CF00A46BBF /* Sampaguita */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Sampaguita;
+			sourceTree = "<group>";
+		};
+		ED24B3B73060E72000A46BBF /* SampaguitaWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				ED24B3C63060E72200A46BBF /* Exceptions for "SampaguitaWidget" folder in "SampaguitaWidgetExtension" target */,
+			);
+			path = SampaguitaWidget;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -26,6 +80,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		ED24B3AE3060E72000A46BBF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ED24B3B63060E72000A46BBF /* SwiftUI.framework in Frameworks */,
+				ED24B3B43060E72000A46BBF /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -33,7 +96,10 @@
 			isa = PBXGroup;
 			children = (
 				ED24B3A13060E5CF00A46BBF /* Sampaguita */,
+				ED24B3B73060E72000A46BBF /* SampaguitaWidget */,
+				ED24B3B23060E72000A46BBF /* Frameworks */,
 				ED24B3A03060E5CF00A46BBF /* Products */,
+				ED24B3CB3060E73A00A46BBF /* words.json */,
 			);
 			sourceTree = "<group>";
 		};
@@ -41,8 +107,18 @@
 			isa = PBXGroup;
 			children = (
 				ED24B39F3060E5CF00A46BBF /* Sampaguita.app */,
+				ED24B3B13060E72000A46BBF /* SampaguitaWidgetExtension.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		ED24B3B23060E72000A46BBF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				ED24B3B33060E72000A46BBF /* WidgetKit.framework */,
+				ED24B3B53060E72000A46BBF /* SwiftUI.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -55,10 +131,12 @@
 				ED24B39B3060E5CF00A46BBF /* Sources */,
 				ED24B39C3060E5CF00A46BBF /* Frameworks */,
 				ED24B39D3060E5CF00A46BBF /* Resources */,
+				ED24B3CA3060E72200A46BBF /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				ED24B3C43060E72200A46BBF /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				ED24B3A13060E5CF00A46BBF /* Sampaguita */,
@@ -69,6 +147,28 @@
 			productName = Sampaguita;
 			productReference = ED24B39F3060E5CF00A46BBF /* Sampaguita.app */;
 			productType = "com.apple.product-type.application";
+		};
+		ED24B3B03060E72000A46BBF /* SampaguitaWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ED24B3C73060E72200A46BBF /* Build configuration list for PBXNativeTarget "SampaguitaWidgetExtension" */;
+			buildPhases = (
+				ED24B3AD3060E72000A46BBF /* Sources */,
+				ED24B3AE3060E72000A46BBF /* Frameworks */,
+				ED24B3AF3060E72000A46BBF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				ED24B3B73060E72000A46BBF /* SampaguitaWidget */,
+			);
+			name = SampaguitaWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = SampaguitaWidgetExtension;
+			productReference = ED24B3B13060E72000A46BBF /* SampaguitaWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -81,6 +181,9 @@
 				LastUpgradeCheck = 2650;
 				TargetAttributes = {
 					ED24B39E3060E5CF00A46BBF = {
+						CreatedOnToolsVersion = 26.5;
+					};
+					ED24B3B03060E72000A46BBF = {
 						CreatedOnToolsVersion = 26.5;
 					};
 				};
@@ -100,6 +203,7 @@
 			projectRoot = "";
 			targets = (
 				ED24B39E3060E5CF00A46BBF /* Sampaguita */,
+				ED24B3B03060E72000A46BBF /* SampaguitaWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -109,6 +213,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED24B3CC3060E74D00A46BBF /* words.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ED24B3AF3060E72000A46BBF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ED24B3DF3060E9F900A46BBF /* words.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,7 +235,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		ED24B3AD3060E72000A46BBF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		ED24B3C43060E72200A46BBF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ED24B3B03060E72000A46BBF /* SampaguitaWidgetExtension */;
+			targetProxy = ED24B3C33060E72200A46BBF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		ED24B3A83060E5D000A46BBF /* Debug */ = {
@@ -310,6 +438,66 @@
 			};
 			name = Release;
 		};
+		ED24B3C83060E72200A46BBF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P6WRVQ9NXJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SampaguitaWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SampaguitaWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.blackbaccaraproductions.Sampaguita.SampaguitaWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		ED24B3C93060E72200A46BBF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P6WRVQ9NXJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SampaguitaWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SampaguitaWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.blackbaccaraproductions.Sampaguita.SampaguitaWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -327,6 +515,15 @@
 			buildConfigurations = (
 				ED24B3AB3060E5D000A46BBF /* Debug */,
 				ED24B3AC3060E5D000A46BBF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ED24B3C73060E72200A46BBF /* Build configuration list for PBXNativeTarget "SampaguitaWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ED24B3C83060E72200A46BBF /* Debug */,
+				ED24B3C93060E72200A46BBF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
