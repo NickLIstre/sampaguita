@@ -9,16 +9,20 @@ import WidgetKit
 import SwiftUI
 
 struct Word: Codable {
-    let language: String
     let word: String
     let translation: String
-    
-    static let sample = Word(language: "fil", word: "salamat", translation: "thank you")
+
+    static let sample = Word(word: "salamat", translation: "thank you")
+}
+
+enum Language: String {
+    case filipino = "fil"
+    case french = "fr"
 }
 
 struct Provider: TimelineProvider {
-    func loadWords() -> [Word] {
-        guard let url = Bundle.main.url(forResource: "words", withExtension: "json"),
+    func loadWords(for language: Language) -> [Word] {
+        guard let url = Bundle.main.url(forResource: "words-\(language.rawValue)", withExtension: "json"),
               let data = try? Data(contentsOf: url),
               let words = try? JSONDecoder().decode([Word].self, from: data)
         else { return [] }
@@ -38,7 +42,7 @@ struct Provider: TimelineProvider {
         var entries: [SimpleEntry] = []
 
         // Load the word list (if fails, use sample)
-        var words = loadWords()
+        var words = loadWords(for: .filipino)
         if words.isEmpty {
             words = [.sample]
         }

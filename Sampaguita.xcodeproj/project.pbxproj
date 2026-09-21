@@ -10,8 +10,10 @@
 		ED24B3B43060E72000A46BBF /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED24B3B33060E72000A46BBF /* WidgetKit.framework */; };
 		ED24B3B63060E72000A46BBF /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED24B3B53060E72000A46BBF /* SwiftUI.framework */; };
 		ED24B3C53060E72200A46BBF /* SampaguitaWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = ED24B3B13060E72000A46BBF /* SampaguitaWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		ED24B3CC3060E74D00A46BBF /* words.json in Resources */ = {isa = PBXBuildFile; fileRef = ED24B3CB3060E73A00A46BBF /* words.json */; };
-		ED24B3DF3060E9F900A46BBF /* words.json in Resources */ = {isa = PBXBuildFile; fileRef = ED24B3CB3060E73A00A46BBF /* words.json */; };
+		ED24B3CC3060E74D00A46BBF /* words-fil.json in Resources */ = {isa = PBXBuildFile; fileRef = ED24B3CB3060E73A00A46BBF /* words-fil.json */; };
+		ED24B3DF3060E9F900A46BBF /* words-fil.json in Resources */ = {isa = PBXBuildFile; fileRef = ED24B3CB3060E73A00A46BBF /* words-fil.json */; };
+		EDB4B5A93061B17700461DA5 /* words-fr.json in Resources */ = {isa = PBXBuildFile; fileRef = EDB4B5A83061B16E00461DA5 /* words-fr.json */; };
+		EDB4B5AA3061B17700461DA5 /* words-fr.json in Resources */ = {isa = PBXBuildFile; fileRef = EDB4B5A83061B16E00461DA5 /* words-fr.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,7 +45,8 @@
 		ED24B3B13060E72000A46BBF /* SampaguitaWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SampaguitaWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED24B3B33060E72000A46BBF /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		ED24B3B53060E72000A46BBF /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		ED24B3CB3060E73A00A46BBF /* words.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = words.json; sourceTree = "<group>"; };
+		ED24B3CB3060E73A00A46BBF /* words-fil.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "words-fil.json"; sourceTree = "<group>"; };
+		EDB4B5A83061B16E00461DA5 /* words-fr.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "words-fr.json"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -99,7 +102,8 @@
 				ED24B3B73060E72000A46BBF /* SampaguitaWidget */,
 				ED24B3B23060E72000A46BBF /* Frameworks */,
 				ED24B3A03060E5CF00A46BBF /* Products */,
-				ED24B3CB3060E73A00A46BBF /* words.json */,
+				ED24B3CB3060E73A00A46BBF /* words-fil.json */,
+				EDB4B5A83061B16E00461DA5 /* words-fr.json */,
 			);
 			sourceTree = "<group>";
 		};
@@ -213,7 +217,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ED24B3CC3060E74D00A46BBF /* words.json in Resources */,
+				ED24B3CC3060E74D00A46BBF /* words-fil.json in Resources */,
+				EDB4B5AA3061B17700461DA5 /* words-fr.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,7 +226,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ED24B3DF3060E9F900A46BBF /* words.json in Resources */,
+				ED24B3DF3060E9F900A46BBF /* words-fil.json in Resources */,
+				EDB4B5A93061B17700461DA5 /* words-fr.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
