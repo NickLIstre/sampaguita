@@ -1,0 +1,10 @@
+# macOS
+.DS_Store
+
+# Xcode personal settings (per user, not shared)
+xcuserdata/
+*.xcuserstate
+
+# Xcode build output
+build/
+DerivedData/
