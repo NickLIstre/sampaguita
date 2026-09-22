@@ -6,7 +6,9 @@
 //
 
 import WidgetKit
+import AppIntents
 import SwiftUI
+
 
 struct Word: Codable {
     let word: String
@@ -15,12 +17,26 @@ struct Word: Codable {
     static let sample = Word(word: "salamat", translation: "thank you")
 }
 
-enum Language: String {
+enum Language: String, AppEnum {
     case filipino = "fil"
     case french = "fr"
+
+    static let typeDisplayRepresentation: TypeDisplayRepresentation = "Language"
+    static let caseDisplayRepresentations: [Language: DisplayRepresentation] = [
+        .filipino: "Filipino",
+        .french: "French"
+    ]
 }
 
-struct Provider: TimelineProvider {
+struct ConfigurationAppIntent: WidgetConfigurationIntent {
+    static let title: LocalizedStringResource = "Choose Language"
+    static let description = IntentDescription("Pick which language this widget shows.")
+
+    @Parameter(title: "Language", default: .filipino)
+    var language: Language
+}
+
+struct Provider: AppIntentTimelineProvider {
     func loadWords(for language: Language) -> [Word] {
         guard let url = Bundle.main.url(forResource: "words-\(language.rawValue)", withExtension: "json"),
               let data = try? Data(contentsOf: url),
@@ -33,30 +49,29 @@ struct Provider: TimelineProvider {
         SimpleEntry(date: Date(), word: .sample)
     }
 
-    func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(), word: .sample)
-        completion(entry)
+    func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> SimpleEntry {
+        SimpleEntry(date: Date(), word: .sample)
     }
 
-    func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
+    func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<SimpleEntry> {
         var entries: [SimpleEntry] = []
 
         // Load the word list (if fails, use sample)
-        var words = loadWords(for: .filipino)
+        var words = loadWords(for: configuration.language)
         if words.isEmpty {
             words = [.sample]
         }
         
         let textOpacity = SharedSettings.store.object(forKey: SharedSettings.textOpacityKey) as? Double ?? 1.0
 
-        let startOfHour = Calendar.current.dateInterval(of: .hour, for: Date())!.start
+        let startOfHour = Calendar.current.dateInterval(of: .minute, for: Date())!.start
 
         // Make five entries, one on each upcoming hour.
         for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: startOfHour)!
+            let entryDate = Calendar.current.date(byAdding: .minute, value: hourOffset, to: startOfHour)!
 
             // Choose word every hour
-            let hoursSince1970 = Int(entryDate.timeIntervalSince1970 / 3600)
+            let hoursSince1970 = Int(entryDate.timeIntervalSince1970 / 60)
             let word = words[hoursSince1970 % words.count]
 
             let entry = SimpleEntry(date: entryDate, word: word, textOpacity: textOpacity)
@@ -64,7 +79,7 @@ struct Provider: TimelineProvider {
         }
 
         let timeline = Timeline(entries: entries, policy: .atEnd)
-        completion(timeline)
+        return Timeline(entries: entries, policy: .atEnd)
     }
 }
 
@@ -115,12 +130,12 @@ struct SampaguitaWidget: Widget {
     let kind: String = "SampaguitaWidget"
 
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: Provider()) { entry in
+        AppIntentConfiguration(kind: kind, intent: ConfigurationAppIntent.self, provider: Provider()) { entry in
             SampaguitaWidgetEntryView(entry: entry)
                 .containerBackground(Theme.background, for: .widget)
         }
         .configurationDisplayName("Word of the Hour")
-        .description("Learn a new Filipino word every hour.")
+        .description("Learn a new word every hour.")
         .supportedFamilies([.accessoryRectangular, .accessoryInline, .systemSmall])
     }
 }
