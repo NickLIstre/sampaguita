@@ -17,6 +17,22 @@ struct Word: Codable {
     static let sample = Word(word: "salamat", translation: "thank you")
 }
 
+struct SeededGenerator: RandomNumberGenerator {
+    private var state: UInt64
+
+    init(seed: Int) {
+        state = UInt64(truncatingIfNeeded: seed)
+    }
+    
+    mutating func next() -> UInt64 {
+        state &+= 0x9E3779B97F4A7C15
+        var z = state
+        z = (z ^ (z >> 30)) &* 0xBF58476D1CE4E5B9
+        z = (z ^ (z >> 27)) &* 0x94D049BB133111EB
+        return z ^ (z >> 31)
+    }
+}
+
 enum Language: String, AppEnum {
     case filipino = "fil"
     case french = "fr"
@@ -28,12 +44,34 @@ enum Language: String, AppEnum {
     ]
 }
 
+enum UpdateInterval: Int, AppEnum {
+    case everyMinute = 1        // For testing. Remove before publishing.
+    case everyHour = 60
+    case every3Hours = 180
+    case every6Hours = 360
+    case every12Hours = 720
+    case everyDay = 1440
+
+    static let typeDisplayRepresentation: TypeDisplayRepresentation = "Update Interval"
+    static let caseDisplayRepresentations: [UpdateInterval: DisplayRepresentation] = [
+        .everyMinute: "Every minute (testing)",
+        .everyHour: "Every hour",
+        .every3Hours: "Every 3 hours",
+        .every6Hours: "Every 6 hours",
+        .every12Hours: "Every 12 hours",
+        .everyDay: "Every day"
+    ]
+}
+
 struct ConfigurationAppIntent: WidgetConfigurationIntent {
-    static let title: LocalizedStringResource = "Choose Language"
-    static let description = IntentDescription("Pick which language this widget shows.")
+    static let title: LocalizedStringResource = "Widget Settings"
+    static let description = IntentDescription("Choose the language and how often the word changes.")
 
     @Parameter(title: "Language", default: .filipino)
     var language: Language
+
+    @Parameter(title: "New Word", default: .everyHour)
+    var interval: UpdateInterval
 }
 
 struct Provider: AppIntentTimelineProvider {
@@ -64,22 +102,43 @@ struct Provider: AppIntentTimelineProvider {
         
         let textOpacity = SharedSettings.store.object(forKey: SharedSettings.textOpacityKey) as? Double ?? 1.0
 
-        let startOfHour = Calendar.current.dateInterval(of: .minute, for: Date())!.start
+        let minutesPerWord = configuration.interval.rawValue
+        let firstSlotStart = slotStart(containing: Date(), minutesPerWord: minutesPerWord)
 
-        // Make five entries, one on each upcoming hour.
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .minute, value: hourOffset, to: startOfHour)!
+        // Make five entries, one at the start of each upcoming slot
+        for step in 0 ..< 5 {
+            let entryDate = Calendar.current.date(byAdding: .minute, value: step * minutesPerWord, to: firstSlotStart)!
 
-            // Choose word every hour
-            let hoursSince1970 = Int(entryDate.timeIntervalSince1970 / 60)
-            let word = words[hoursSince1970 % words.count]
+            // Shuffle the words once per round, then take this slot's word from the shuffled list
+            let slot = slotNumber(for: entryDate, minutesPerWord: minutesPerWord)
+            let round = slot / words.count
+            let position = slot % words.count
+            var generator = SeededGenerator(seed: round)
+            let word = words.shuffled(using: &generator)[position]
 
             let entry = SimpleEntry(date: entryDate, word: word, textOpacity: textOpacity)
             entries.append(entry)
         }
 
-        let timeline = Timeline(entries: entries, policy: .atEnd)
         return Timeline(entries: entries, policy: .atEnd)
+    }
+    // The start of the slot a date falls in
+    func slotStart(containing date: Date, minutesPerWord: Int) -> Date {
+        let calendar = Calendar.current
+        let startOfDay = calendar.startOfDay(for: date)
+        let minutesIntoDay = calendar.dateComponents([.minute], from: startOfDay, to: date).minute!
+        let slotInDay = minutesIntoDay / minutesPerWord
+        return calendar.date(byAdding: .minute, value: slotInDay * minutesPerWord, to: startOfDay)!
+    }
+
+    // A number that goes up by 1 for every slot, counted in the phone's own time zone
+    func slotNumber(for date: Date, minutesPerWord: Int) -> Int {
+        let calendar = Calendar.current
+        let startOfDay = calendar.startOfDay(for: date)
+        let firstDay = calendar.startOfDay(for: Date(timeIntervalSince1970: 0))
+        let days = calendar.dateComponents([.day], from: firstDay, to: startOfDay).day!
+        let minutesIntoDay = calendar.dateComponents([.minute], from: startOfDay, to: date).minute!
+        return days * (1440 / minutesPerWord) + minutesIntoDay / minutesPerWord
     }
 }
 
