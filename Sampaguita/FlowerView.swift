@@ -12,6 +12,7 @@ struct FlowerView<Content: View>: View {
     var petalCount = 5
     var petalColor: Color = Theme.petal
     var centerColor: Color = Theme.center
+    var rotation: Angle = .zero
     @ViewBuilder var content: Content
     @Environment(\.widgetRenderingMode) private var renderingMode
 
@@ -25,14 +26,17 @@ struct FlowerView<Content: View>: View {
 
             ZStack {
                 // Petals
-                ForEach(0..<petalCount, id: \.self) { index in
-                    Ellipse()
-                        .fill(isFullColor ? petalColor : .white.opacity(0.45))
-                        .shadow(color: .black.opacity(isFullColor ? 0.5 : 0), radius: 2)
-                        .frame(width: size * 0.29, height: size * 0.62)
-                        .offset(y: -size * 0.19)
-                        .rotationEffect(.degrees(Double(index) / Double(petalCount) * 360))
+                ZStack {
+                    ForEach(0..<petalCount, id: \.self) { index in
+                        Ellipse()
+                            .fill(isFullColor ? petalColor : .white.opacity(0.45))
+                            .shadow(color: .black.opacity(isFullColor ? 0.5 : 0), radius: 2)
+                            .frame(width: size * 0.29, height: size * 0.62)
+                            .offset(y: -size * 0.19)
+                            .rotationEffect(.degrees(Double(index) / Double(petalCount) * 360))
+                    }
                 }
+                .rotationEffect(rotation)
 
                 // Center
                 Circle()
@@ -53,9 +57,10 @@ struct WordFlower: View {
     let word: String
     let translation: String
     var textOpacity = 1.0
+    var rotation: Angle = .zero
 
     var body: some View {
-        FlowerView {
+        FlowerView(rotation: rotation) {
             VStack(spacing: 2) {
                 Text(word)
                     .font(.headline)
@@ -69,6 +74,8 @@ struct WordFlower: View {
             .multilineTextAlignment(.center)
             .minimumScaleFactor(0.4)
             .opacity(textOpacity)
+            .id(word)
+            .transition(.scale.combined(with: .opacity))
         }
     }
 }

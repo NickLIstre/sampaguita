@@ -10,13 +10,6 @@ import AppIntents
 import SwiftUI
 
 
-struct Word: Codable {
-    let word: String
-    let translation: String
-
-    static let sample = Word(word: "salamat", translation: "thank you")
-}
-
 struct SeededGenerator: RandomNumberGenerator {
     private var state: UInt64
 
@@ -31,17 +24,6 @@ struct SeededGenerator: RandomNumberGenerator {
         z = (z ^ (z >> 27)) &* 0x94D049BB133111EB
         return z ^ (z >> 31)
     }
-}
-
-enum Language: String, AppEnum {
-    case filipino = "fil"
-    case french = "fr"
-
-    static let typeDisplayRepresentation: TypeDisplayRepresentation = "Language"
-    static let caseDisplayRepresentations: [Language: DisplayRepresentation] = [
-        .filipino: "Filipino",
-        .french: "French"
-    ]
 }
 
 enum UpdateInterval: Int, AppEnum {
@@ -75,14 +57,6 @@ struct ConfigurationAppIntent: WidgetConfigurationIntent {
 }
 
 struct Provider: AppIntentTimelineProvider {
-    func loadWords(for language: Language) -> [Word] {
-        guard let url = Bundle.main.url(forResource: "words-\(language.rawValue)", withExtension: "json"),
-              let data = try? Data(contentsOf: url),
-              let words = try? JSONDecoder().decode([Word].self, from: data)
-        else { return [] }
-        return words
-    }
-    
     func placeholder(in context: Context) -> SimpleEntry {
         SimpleEntry(date: Date(), word: .sample)
     }
@@ -95,7 +69,7 @@ struct Provider: AppIntentTimelineProvider {
         var entries: [SimpleEntry] = []
 
         // Load the word list (if fails, use sample)
-        var words = loadWords(for: configuration.language)
+        var words = Word.load(for: configuration.language)
         if words.isEmpty {
             words = [.sample]
         }

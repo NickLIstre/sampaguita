@@ -63,7 +63,9 @@
 			membershipExceptions = (
 				FlowerView.swift,
 				SharedSettings.swift,
+				SpinningWordFlower.swift,
 				Theme.swift,
+				Words.swift,
 			);
 			target = ED24B3B03060E72000A46BBF /* SampaguitaWidgetExtension */;
 		};

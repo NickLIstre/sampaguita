@@ -15,7 +15,7 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-                WordFlower(word: "salamat", translation: "thank you", textOpacity: textOpacity)
+                SpinningWordFlower(textOpacity: textOpacity)
                     .frame(width: 200, height: 200)
                     .padding(.vertical)
 
