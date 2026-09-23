@@ -24,7 +24,7 @@ struct Word: Codable {
     }
 }
 
-enum Language: String, AppEnum {
+enum Language: String, AppEnum, CaseIterable {
     case filipino = "fil"
     case french = "fr"
 
@@ -33,4 +33,11 @@ enum Language: String, AppEnum {
         .filipino: "Filipino",
         .french: "French"
     ]
+    // The name shown in the app's picker.
+    var name: String {
+        switch self {
+        case .filipino: "Filipino"
+        case .french: "French"
+        }
+    }
 }

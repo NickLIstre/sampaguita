@@ -11,6 +11,10 @@ import WidgetKit
 struct ContentView: View {
     @AppStorage(SharedSettings.textOpacityKey, store: SharedSettings.store)
     private var textOpacity = 1.0
+    @AppStorage(SharedSettings.languageKey, store: SharedSettings.store)
+    private var language = Language.filipino
+    @AppStorage(SharedSettings.updateIntervalKey, store: SharedSettings.store)
+    private var updateInterval = UpdateInterval.everyHour
 
     var body: some View {
         NavigationStack {
@@ -20,6 +24,20 @@ struct ContentView: View {
                     .padding(.vertical)
 
                 Form {
+                    Section("Language") {
+                        Picker("Language", selection: $language) {
+                            ForEach(Language.allCases, id: \.self) { language in
+                                Text(language.name).tag(language)
+                            }
+                        }
+                    }
+                    Section("New Word") {
+                        Picker("New word", selection: $updateInterval) {
+                            ForEach(UpdateInterval.allCases, id: \.self) { interval in
+                                Text(interval.name).tag(interval)
+                            }
+                        }
+                    }
                     Section("Text") {
                         Slider(value: $textOpacity, in: 0.2...1.0) { editing in
                             // Only refresh the widget when the user lets go of the slider.
@@ -30,6 +48,12 @@ struct ContentView: View {
                     }
                 }
                 .scrollContentBackground(.hidden)
+                .onChange(of: language) {
+                    WidgetCenter.shared.reloadAllTimelines()
+                }
+                .onChange(of: updateInterval) {
+                    WidgetCenter.shared.reloadAllTimelines()
+                }
             }
             .background(Theme.background)
             .navigationTitle("Sampaguita")

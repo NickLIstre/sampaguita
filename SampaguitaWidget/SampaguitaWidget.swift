@@ -26,7 +26,8 @@ struct SeededGenerator: RandomNumberGenerator {
     }
 }
 
-enum UpdateInterval: Int, AppEnum {
+enum IntervalChoice: Int, AppEnum {
+    case sameAsApp = 0
     case everyMinute = 1        // For testing. Remove before publishing.
     case everyHour = 60
     case every3Hours = 180
@@ -35,7 +36,8 @@ enum UpdateInterval: Int, AppEnum {
     case everyDay = 1440
 
     static let typeDisplayRepresentation: TypeDisplayRepresentation = "Update Interval"
-    static let caseDisplayRepresentations: [UpdateInterval: DisplayRepresentation] = [
+    static let caseDisplayRepresentations: [IntervalChoice: DisplayRepresentation] = [
+        .sameAsApp: "Same as app",
         .everyMinute: "Every minute (testing)",
         .everyHour: "Every hour",
         .every3Hours: "Every 3 hours",
@@ -43,17 +45,40 @@ enum UpdateInterval: Int, AppEnum {
         .every12Hours: "Every 12 hours",
         .everyDay: "Every day"
     ]
+
+    // How many minutes each word lasts: this widget's own choice, or the app's setting.
+    var minutes: Int {
+        (UpdateInterval(rawValue: rawValue) ?? SharedSettings.updateInterval).rawValue
+    }
+}
+
+enum LanguageChoice: String, AppEnum {
+    case sameAsApp = "app"
+    case filipino = "fil"
+    case french = "fr"
+
+    static let typeDisplayRepresentation: TypeDisplayRepresentation = "Language"
+    static let caseDisplayRepresentations: [LanguageChoice: DisplayRepresentation] = [
+        .sameAsApp: "Same as app",
+        .filipino: "Filipino",
+        .french: "French"
+    ]
+
+    // Which language to show: this widget's own choice, or the app's setting.
+    var language: Language {
+        Language(rawValue: rawValue) ?? SharedSettings.language
+    }
 }
 
 struct ConfigurationAppIntent: WidgetConfigurationIntent {
     static let title: LocalizedStringResource = "Widget Settings"
     static let description = IntentDescription("Choose the language and how often the word changes.")
 
-    @Parameter(title: "Language", default: .filipino)
-    var language: Language
+    @Parameter(title: "Language", default: .sameAsApp)
+    var language: LanguageChoice
 
-    @Parameter(title: "New Word", default: .everyHour)
-    var interval: UpdateInterval
+    @Parameter(title: "New Word", default: .sameAsApp)
+    var interval: IntervalChoice
 }
 
 struct Provider: AppIntentTimelineProvider {
@@ -69,14 +94,14 @@ struct Provider: AppIntentTimelineProvider {
         var entries: [SimpleEntry] = []
 
         // Load the word list (if fails, use sample)
-        var words = Word.load(for: configuration.language)
+        var words = Word.load(for: configuration.language.language)
         if words.isEmpty {
             words = [.sample]
         }
         
         let textOpacity = SharedSettings.store.object(forKey: SharedSettings.textOpacityKey) as? Double ?? 1.0
 
-        let minutesPerWord = configuration.interval.rawValue
+        let minutesPerWord = configuration.interval.minutes
         let firstSlotStart = slotStart(containing: Date(), minutesPerWord: minutesPerWord)
 
         // Make five entries, one at the start of each upcoming slot

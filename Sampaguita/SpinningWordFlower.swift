@@ -3,8 +3,14 @@ import SwiftUI
 struct SpinningWordFlower: View {
     var textOpacity = 1.0
 
-    @State private var words = Word.load(for: .filipino)
+    @AppStorage(SharedSettings.languageKey, store: SharedSettings.store)
+    private var language = Language.filipino
+
     @State private var word = Word.sample
+
+    private var words: [Word] {
+        Word.load(for: language)
+    }
 
     // Dragging
     @State private var rotation = 0.0
@@ -72,6 +78,9 @@ struct SpinningWordFlower: View {
         .sensoryFeedback(.success, trigger: word.word)
         .onAppear {
             word = words.randomElement() ?? .sample
+        }
+        .onChange(of: language) {
+            showNewWord()
         }
     }
 
