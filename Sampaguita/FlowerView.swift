@@ -54,6 +54,7 @@ struct FlowerView<Content: View>: View {
                 .frame(width: size, height: size)
                 .rotationEffect(rotation)
                 .widgetAccentable()
+                .accessibilityHidden(true)
                 .mask {
                     // Cut a hole where the center circle goes, so no petal shows through it
                     Rectangle()

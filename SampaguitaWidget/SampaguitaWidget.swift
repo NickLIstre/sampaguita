@@ -153,6 +153,13 @@ struct SampaguitaWidgetEntryView : View {
     @Environment(\.widgetFamily) var family
 
     var body: some View {
+        content
+            .accessibilityElement(children: .ignore)
+            .accessibilityLabel("\(entry.word.word), \(entry.word.translation)")
+    }
+
+    @ViewBuilder
+    private var content: some View {
         switch family {
         case .accessoryInline:
             Text("\(entry.word.word) · \(entry.word.translation)")

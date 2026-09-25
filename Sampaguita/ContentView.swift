@@ -23,31 +23,40 @@ struct ContentView: View {
                     .frame(width: 200, height: 200)
                     .padding(.vertical)
 
-                Form {
-                    Section("Language") {
-                        Picker("Language", selection: $language) {
-                            ForEach(Language.allCases, id: \.self) { language in
-                                Text(language.name).tag(language)
+                ScrollView {
+                    VStack(spacing: 28) {
+                        SettingBlock("Language") {
+                            Picker("Language", selection: $language) {
+                                ForEach(Language.allCases, id: \.self) { language in
+                                    Text(language.name).tag(language)
+                                }
                             }
+                            .labelsHidden()
+                        }
+
+                        SettingBlock("New Word") {
+                            Picker("New word", selection: $updateInterval) {
+                                ForEach(UpdateInterval.allCases, id: \.self) { interval in
+                                    Text(interval.name).tag(interval)
+                                }
+                            }
+                            .labelsHidden()
+                        }
+
+                        SettingBlock("Text Opacity") {
+                            Slider(value: $textOpacity, in: 0.2...1.0) { editing in
+                                // Only refresh the widget when the user lets go of the slider.
+                                if !editing {
+                                    WidgetCenter.shared.reloadAllTimelines()
+                                }
+                            }
+                            .accessibilityLabel("Text opacity")
                         }
                     }
-                    Section("New Word") {
-                        Picker("New word", selection: $updateInterval) {
-                            ForEach(UpdateInterval.allCases, id: \.self) { interval in
-                                Text(interval.name).tag(interval)
-                            }
-                        }
-                    }
-                    Section("Text") {
-                        Slider(value: $textOpacity, in: 0.2...1.0) { editing in
-                            // Only refresh the widget when the user lets go of the slider.
-                            if !editing {
-                                WidgetCenter.shared.reloadAllTimelines()
-                            }
-                        }
-                    }
+                    .padding(.horizontal, 40)
+                    .padding(.top, 8)
                 }
-                .scrollContentBackground(.hidden)
+                .scrollBounceBehavior(.basedOnSize)
                 .onChange(of: language) {
                     WidgetCenter.shared.reloadAllTimelines()
                 }
@@ -63,9 +72,30 @@ struct ContentView: View {
                     Text("Sampaguita")
                         .font(.largeTitle.bold())
                         .fontDesign(.serif)
+                        .foregroundStyle(Theme.text)
                 }
             }
         }
+    }
+}
+
+struct SettingBlock<Content: View>: View {
+    let title: String
+    @ViewBuilder var content: Content
+
+    init(_ title: String, @ViewBuilder content: () -> Content) {
+        self.title = title
+        self.content = content()
+    }
+
+    var body: some View {
+        VStack(spacing: 8) {
+            Text(title)
+                .font(.headline)
+                .foregroundStyle(Theme.text)
+            content
+        }
+        .frame(maxWidth: .infinity)
     }
 }
 

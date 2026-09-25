@@ -22,6 +22,8 @@ struct SpinningWordFlower: View {
 
     // How long the flower keeps its speed, in seconds
     private let friction = 0.6
+    // Reduce motion if enabled in Accessibility settings
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
         GeometryReader { geometry in
@@ -52,28 +54,46 @@ struct SpinningWordFlower: View {
                         lastFingerAngle = fingerAngle
                     }
                     .onEnded { value in
-                        coastSpeed = fingerTurnSpeed(for: value, around: center)
-                        coastStart = .now
+                        // Reduce Motion: stop spinning after release
+                        let speed = reduceMotion ? 0 : fingerTurnSpeed(for: value, around: center)
+                        let totalSpin = abs(spinThisDrag + speed * friction)
 
-                        let totalSpin = abs(spinThisDrag + coastSpeed * friction)
                         lastFingerAngle = nil
                         spinThisDrag = 0
+                        coastTask?.cancel()
+
+                        guard abs(speed) > 20 else {
+                            coastStart = nil
+                            if totalSpin >= 360 {
+                                showNewWord()
+                            }
+                            return
+                        }
+
+                        coastSpeed = speed
+                        coastStart = .now
 
                         coastTask = Task {
-                            try? await Task.sleep(for: .seconds(friction * 3))
+                            // Wait until flower almost stops spinning then show the new word
+                            try? await Task.sleep(for: .seconds(friction * 3), tolerance: .zero)
                             guard !Task.isCancelled else { return }
-                            // A full spin or more shows new word
                             if totalSpin >= 360 {
                                 showNewWord()
                             }
 
-                            try? await Task.sleep(for: .seconds(friction * 5))
+                            try? await Task.sleep(for: .seconds(friction * 2), tolerance: .zero)
                             guard !Task.isCancelled else { return }
                             rotation = currentRotation(at: .now)
                             coastStart = nil
                         }
                     }
             )
+        }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("\(word.word), \(word.translation)")
+        .accessibilityHint("Spin the flower to see another word")
+        .accessibilityAction(named: "Another word") {
+            showNewWord()
         }
         .sensoryFeedback(.success, trigger: word.word)
         .onAppear {
@@ -114,7 +134,7 @@ struct SpinningWordFlower: View {
     func showNewWord() {
         let otherWords = words.filter { $0.word != word.word }
         guard let newWord = otherWords.randomElement() else { return }
-        withAnimation(.spring(duration: 0.4, bounce: 0.5)) {
+        withAnimation(reduceMotion ? nil : .spring(duration: 0.4, bounce: 0.5)) {
             word = newWord
         }
     }
