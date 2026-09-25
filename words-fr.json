@@ -1,6 +1,6 @@
 [
   { "word": "bonjour", "translation": "hello" },
-  { "word": "merci", "translation": "thank you" },
   { "word": "chat", "translation": "cat" },
-  { "word": "fleur", "translation": "flower" }
+  { "word": "fleur", "translation": "flower" },
+  { "word": "merci", "translation": "thank you" }
 ]
