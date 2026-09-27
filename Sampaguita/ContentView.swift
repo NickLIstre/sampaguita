@@ -4,6 +4,7 @@
 //
 //  Created by Nick Istre on 9/21/26.
 //
+//  The home screen of the app
 
 import SwiftUI
 import WidgetKit
@@ -11,8 +12,10 @@ import WidgetKit
 struct ContentView: View {
     @AppStorage(SharedSettings.textOpacityKey, store: SharedSettings.store)
     private var textOpacity = 1.0
+    
     @AppStorage(SharedSettings.languageKey, store: SharedSettings.store)
     private var language = Language.filipino
+    
     @AppStorage(SharedSettings.updateIntervalKey, store: SharedSettings.store)
     private var updateInterval = UpdateInterval.everyHour
 
@@ -45,7 +48,7 @@ struct ContentView: View {
 
                         SettingBlock("Text Opacity") {
                             Slider(value: $textOpacity, in: 0.2...1.0) { editing in
-                                // Only refresh the widget when the user lets go of the slider.
+                                // Only refresh the widget when the user lets go of the slider
                                 if !editing {
                                     WidgetCenter.shared.reloadAllTimelines()
                                 }

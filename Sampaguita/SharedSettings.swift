@@ -4,11 +4,11 @@
 //
 //  Created by Nick Istre on 9/21/26.
 //
+//  Writes the settings on the home screen and connects them to the widget
 
 import Foundation
-import AppIntents
 
-enum UpdateInterval: Int, AppEnum, CaseIterable {
+enum UpdateInterval: Int, CaseIterable {
     case everyMinute = 1        // For testing. Remove before publishing.
     case everyHour = 60
     case every3Hours = 180
@@ -16,15 +16,6 @@ enum UpdateInterval: Int, AppEnum, CaseIterable {
     case every12Hours = 720
     case everyDay = 1440
 
-    static let typeDisplayRepresentation: TypeDisplayRepresentation = "Update Interval"
-    static let caseDisplayRepresentations: [UpdateInterval: DisplayRepresentation] = [
-        .everyMinute: "Every minute (testing)",
-        .everyHour: "Every hour",
-        .every3Hours: "Every 3 hours",
-        .every6Hours: "Every 6 hours",
-        .every12Hours: "Every 12 hours",
-        .everyDay: "Every day"
-    ]
     var name: String {
         switch self {
         case .everyMinute: "Every minute (testing)"
@@ -52,7 +43,7 @@ enum SharedSettings {
         else { return .filipino }
         return language
     }
-    // How often the word changes, as chosen in the app (hourly until something else is picked).
+    // How often the word changes, as chosen in the app (hourly by default)
     static var updateInterval: UpdateInterval {
         UpdateInterval(rawValue: store.integer(forKey: updateIntervalKey)) ?? .everyHour
     }

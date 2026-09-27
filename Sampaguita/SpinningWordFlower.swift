@@ -1,3 +1,11 @@
+//
+//  SpinningWordFlower.swift
+//  Sampaguita
+//
+//  Created by Nick Istre on 9/21/26.
+//
+//  The spinning flower on the home screen
+
 import SwiftUI
 
 struct SpinningWordFlower: View {

@@ -4,6 +4,7 @@
 //
 //  Created by Nick Istre on 9/21/26.
 //
+//  The Sampaguita flower that is displayed in the app and widget
 
 import SwiftUI
 import WidgetKit
@@ -15,6 +16,12 @@ struct FlowerView<Content: View>: View {
     var rotation: Angle = .zero
     @ViewBuilder var content: Content
     @Environment(\.widgetRenderingMode) private var renderingMode
+    
+    // Keep petalOffset + petalHeight / 2 at 0.5 or less, or the petals stick out past the edge
+    private let petalWidth = 0.29
+    private let petalHeight = 0.62
+    private let petalOffset = 0.19
+    private let centerSize = 0.42
 
     private var isFullColor: Bool {
         renderingMode == .fullColor
@@ -46,8 +53,8 @@ struct FlowerView<Content: View>: View {
                         Ellipse()
                             .fill(petalFill)
                             .shadow(color: .black.opacity(isFullColor ? 0.5 : 0), radius: 2)
-                            .frame(width: size * 0.29, height: size * 0.62)
-                            .offset(y: -size * 0.19)
+                            .frame(width: size * petalWidth, height: size * petalHeight)
+                            .offset(y: -size * petalOffset)
                             .rotationEffect(.degrees(Double(index) / Double(petalCount) * 360))
                     }
                 }
@@ -56,11 +63,11 @@ struct FlowerView<Content: View>: View {
                 .widgetAccentable()
                 .accessibilityHidden(true)
                 .mask {
-                    // Cut a hole where the center circle goes, so no petal shows through it
+                    // Cut a hole where the center circle goes so you can't see the petals overlapping
                     Rectangle()
                         .overlay {
                             Circle()
-                                .frame(width: size * 0.42, height: size * 0.42)
+                                .frame(width: size * centerSize, height: size * centerSize)
                                 .blendMode(.destinationOut)
                         }
                         .compositingGroup()
@@ -69,7 +76,7 @@ struct FlowerView<Content: View>: View {
                 // Center
                 Circle()
                     .fill(centerFill)
-                    .frame(width: size * 0.42, height: size * 0.42)
+                    .frame(width: size * centerSize, height: size * centerSize)
                     .overlay { Circle().stroke(.black.opacity(0.12), lineWidth: 1) }
                     .overlay {
                         content
@@ -88,7 +95,7 @@ struct WordFlower: View {
     var rotation: Angle = .zero
     @Environment(\.widgetRenderingMode) private var renderingMode
 
-    // Black on the center in full color, white when tinted
+    // Changes text color to be readable no matter home screen settings 
     private var textColor: Color {
         renderingMode == .fullColor ? .black : .white
     }

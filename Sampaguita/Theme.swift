@@ -4,6 +4,7 @@
 //
 //  Created by Nick Istre on 9/21/26.
 //
+//  All the styling for the app and widget
 
 import SwiftUI
 
