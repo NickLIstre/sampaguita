@@ -39,12 +39,20 @@ enum LanguageChoice: String, AppEnum {
     case sameAsApp = "app"
     case filipino = "fil"
     case french = "fr"
+    case german = "de"
+    case italian = "it"
+    case portuguese = "pt"
+    case spanish = "es"
 
     static let typeDisplayRepresentation: TypeDisplayRepresentation = "Language"
     static let caseDisplayRepresentations: [LanguageChoice: DisplayRepresentation] = [
         .sameAsApp: "Same as app",
         .filipino: "Filipino",
-        .french: "French"
+        .french: "French",
+        .german: "German",
+        .italian: "Italian",
+        .portuguese: "Portuguese",
+        .spanish: "Spanish"
     ]
 
     // Which language to show: this widget's own choice, or the app's setting
