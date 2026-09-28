@@ -27,12 +27,20 @@ struct Word: Codable {
 enum Language: String, CaseIterable {
     case filipino = "fil"
     case french = "fr"
+    case german = "de"
+    case italian = "it"
+    case portuguese = "pt"
+    case spanish = "es"
 
     // The name shown in the app's picker
     var name: String {
         switch self {
         case .filipino: "Filipino"
         case .french: "French"
+        case .german: "German"
+        case .italian: "Italian"
+        case .portuguese: "Portuguese"
+        case .spanish: "Spanish"
         }
     }
 }
