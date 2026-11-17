@@ -63,7 +63,7 @@ struct FlowerView<Content: View>: View {
                 .widgetAccentable()
                 .accessibilityHidden(true)
                 .mask {
-                    // Cut a hole where the center circle goes so you can't see the petals overlapping
+                    // Cuts a hole where the center circle goes so you can't see the petals overlapping
                     Rectangle()
                         .overlay {
                             Circle()
@@ -95,7 +95,7 @@ struct WordFlower: View {
     var rotation: Angle = .zero
     @Environment(\.widgetRenderingMode) private var renderingMode
 
-    // Changes text color to be readable no matter home screen settings 
+    // Keeps the text readable in any home screen style (Tinted, Clear, etc.)
     private var textColor: Color {
         renderingMode == .fullColor ? .black : .white
     }

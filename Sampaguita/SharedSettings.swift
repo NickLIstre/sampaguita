@@ -4,12 +4,11 @@
 //
 //  Created by Nick Istre on 9/21/26.
 //
-//  Writes the settings on the home screen and connects them to the widget
+//  Saves the settings from the app's home screen and connects them to the widget
 
 import Foundation
 
 enum UpdateInterval: Int, CaseIterable {
-    case everyMinute = 1        // For testing. Remove before publishing.
     case everyHour = 60
     case every3Hours = 180
     case every6Hours = 360
@@ -18,7 +17,6 @@ enum UpdateInterval: Int, CaseIterable {
 
     var name: String {
         switch self {
-        case .everyMinute: "Every minute (testing)"
         case .everyHour: "Every hour"
         case .every3Hours: "Every 3 hours"
         case .every6Hours: "Every 6 hours"

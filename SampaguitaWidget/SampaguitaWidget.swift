@@ -4,7 +4,7 @@
 //
 //  Created by Nick Istre on 9/21/26.
 //
-//  The widget itself and everything it uses
+//  The widget itself
 
 import WidgetKit
 import AppIntents

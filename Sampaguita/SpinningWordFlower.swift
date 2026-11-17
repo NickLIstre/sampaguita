@@ -4,7 +4,7 @@
 //
 //  Created by Nick Istre on 9/21/26.
 //
-//  The spinning flower on the home screen
+//  The spinning flower on the app home screen
 
 import SwiftUI
 

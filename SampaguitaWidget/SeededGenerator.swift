@@ -4,7 +4,7 @@
 //
 //  Created by Nick Istre on 9/27/26.
 //
-//  A random number generator that helps pick a random unseen word from the list
+//  A random number generator that shuffles the words to be shown (TODO: show unseen words first)
 
 import Foundation
 

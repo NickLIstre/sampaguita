@@ -11,7 +11,6 @@ import WidgetKit
 
 enum IntervalChoice: Int, AppEnum {
     case sameAsApp = 0
-    case everyMinute = 1        // For testing. Remove before publishing.
     case everyHour = 60
     case every3Hours = 180
     case every6Hours = 360
@@ -21,7 +20,6 @@ enum IntervalChoice: Int, AppEnum {
     static let typeDisplayRepresentation: TypeDisplayRepresentation = "Update Interval"
     static let caseDisplayRepresentations: [IntervalChoice: DisplayRepresentation] = [
         .sameAsApp: "Same as app",
-        .everyMinute: "Every minute (testing)",
         .everyHour: "Every hour",
         .every3Hours: "Every 3 hours",
         .every6Hours: "Every 6 hours",
