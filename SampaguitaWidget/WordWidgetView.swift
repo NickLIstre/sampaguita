@@ -29,6 +29,7 @@ struct WordWidgetView : View {
             
         case .systemSmall:
             WordFlower(word: entry.word.word,
+                       pronunciation: entry.word.pronunciation,
                        translation: entry.word.translation,
                        textOpacity: entry.textOpacity)
             
@@ -40,6 +41,12 @@ struct WordWidgetView : View {
                 VStack(alignment: .leading, spacing: 0) {
                     Text(entry.word.word)
                         .font(.headline)
+                    if let pronunciation = entry.word.pronunciation {
+                        Text(pronunciation)
+                            .font(.caption)
+                            .italic()
+                            .foregroundStyle(.secondary)
+                    }
                     Text(entry.word.translation)
                         .font(.subheadline)
                         .foregroundStyle(.secondary)

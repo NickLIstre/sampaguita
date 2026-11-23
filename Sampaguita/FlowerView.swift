@@ -90,6 +90,7 @@ struct FlowerView<Content: View>: View {
 
 struct WordFlower: View {
     let word: String
+    var pronunciation: String? = nil
     let translation: String
     var textOpacity = 1.0
     var rotation: Angle = .zero
@@ -107,6 +108,12 @@ struct WordFlower: View {
                     .font(.headline)
                     .foregroundStyle(textColor)
                     .lineLimit(word.contains(" ") ? 2 : 1)
+                if let pronunciation {
+                    Text(pronunciation)
+                        .font(.caption2)
+                        .foregroundStyle(textColor.opacity(0.6))
+                        .lineLimit(pronunciation.contains(" ") ? 2 : 1)
+                }
                 Text(translation)
                     .font(.caption)
                     .foregroundStyle(textColor.opacity(0.7))
@@ -122,6 +129,6 @@ struct WordFlower: View {
 }
 
 #Preview("Word flower") {
-    WordFlower(word: "kumusta", translation: "how are you")
+    WordFlower(word: "kumusta", pronunciation: "koo-moos-TAH", translation: "how are you")
         .frame(width: 170, height: 170)
 }

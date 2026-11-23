@@ -10,9 +10,10 @@ import Foundation
 
 struct Word: Codable {
     let word: String
+    let pronunciation: String?
     let translation: String
 
-    static let sample = Word(word: "salamat", translation: "thank you")
+    static let sample = Word(word: "salamat", pronunciation: "sah-Lah-maht", translation: "thank you")
 
     // Loads the word list for a language from its JSON file (empty if it fails)
     static func load(for language: Language) -> [Word] {

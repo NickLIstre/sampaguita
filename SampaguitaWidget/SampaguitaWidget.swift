@@ -35,5 +35,5 @@ struct SampaguitaWidget: Widget {
     SampaguitaWidget()
 } timeline: {
     WordEntry(date: .now, word: .sample)
-    WordEntry(date: .now, word: Word(word: "kumusta", translation: "how are you"))
+    WordEntry(date: .now, word: Word(word: "kumusta", pronunciation: "koo-moos-TAH", translation: "how are you"))
 }

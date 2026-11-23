@@ -38,7 +38,7 @@ struct SpinningWordFlower: View {
             let center = CGPoint(x: geometry.size.width / 2, y: geometry.size.height / 2)
 
             TimelineView(.animation(paused: coastStart == nil)) { timeline in
-                WordFlower(word: word.word,
+                WordFlower(word: word.word, pronunciation: word.pronunciation,
                            translation: word.translation,
                            textOpacity: textOpacity,
                            rotation: .degrees(currentRotation(at: timeline.date)))
